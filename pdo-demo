@@ -1,11 +1,16 @@
 <?php
+$var  = "Password"; // open password string
+
+$salt = ")(*&^%#KJHDKJBMDBLYWkjsdvbambsf;uawkb,nadslk#!%#$@%$^%79589q74eoqwuiawn,ZCNCZC,nZVa"; // salt string
+
+$password1 = hash('sha512', $var.$salt); // password encryption
 $password2 = hash('sha512', sha1(md5($var.$salt))); // password encryption
 
 $password3 = hash('sha512', md5(sha1($var.$salt))); // password encryption
 
-$param['name'] = "Deepak Singh";
-$param['email'] = "prodeep2006@gmail.com";
-$param['pass'] = "Deepak@2021";
+$param['name'] = "John Doe";
+$param['email'] = "example.com";
+$param['pass'] = "password";
 
 class USER{
     
