@@ -1,0 +1,37 @@
+<?php
+$password2 = hash('sha512', sha1(md5($var.$salt))); // password encryption
+
+$password3 = hash('sha512', md5(sha1($var.$salt))); // password encryption
+
+$param['name'] = "Deepak Singh";
+$param['email'] = "prodeep2006@gmail.com";
+$param['pass'] = "Deepak@2021";
+
+class USER{
+    
+    public function addUser($param){
+        static $userAddReturn;
+        $cn = new Database();
+        $con = $cn->connection();
+        
+        $sql = "INSERT INTO users (name, username, password) VALUES (:cname, :cusername, :cpass)";
+        
+        // pdo
+        $stmt = $con->prepare($sql);
+        $stmt->bindParam(':cname', $param['name'], PDO::PARAM_STR);
+        $stmt->bindParam(':cusername', $param['email'], PDO::PARAM_STR);
+        $stmt->bindParam(':cpass', $param['pass'], PDO::PARAM_STR);
+        try{
+           $stmt->execute();
+           $userAddReturn = array('status'=> 200, "data"=> $con->lastInsertID());
+            
+        }catch(PDOexeptions $e){
+            $userAddReturn = array('status'=> 500, "data"=> $e->getMessage());
+        }
+        
+        return json_encode($userAddReturn);
+    }
+}
+
+
+?>
